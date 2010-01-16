@@ -1,13 +1,13 @@
-package Bio::GMOD::RPC::View;
+package Bio::GMOD::RPC::Server::View;
 use namespace::autoclean;
 use Moose::Role;
 use Carp;
 
-use Bio::GMOD::RPC::Types qw/ PositiveNum /;
+use Bio::GMOD::RPC::Server::Types qw/ PositiveNum /;
 
 =head1 NAME
 
-Bio::GMOD::RPC::View - base class for GMOD-RPC views
+Bio::GMOD::RPC::Server::View - base class for GMOD-RPC views
 
 =head1 ATTRIBUTES
 
@@ -58,7 +58,7 @@ requires '_render_data';
 
 =head2 render_result
 
-  Usage: my $str = Bio::GMOD::RPC::View::XML
+  Usage: my $str = Bio::GMOD::RPC::Server::View::XML
                       ->new
                       ->render_result({ foo => 'bar', baz => 'boo' });
   Desc : render a perl-native data structure into XML

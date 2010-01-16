@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use aliased 'Bio::GMOD::RPC::View::JSON';
+use aliased 'Bio::GMOD::RPC::Server::View::JSON';
 
 use Test::More tests => 6;
 use Test::Warn;
@@ -15,7 +15,7 @@ use lib "$FindBin::RealBin/lib";
 use view;
 
 BEGIN {
-  use_ok(  'Bio::GMOD::RPC::View::JSON'  )
+  use_ok(  'Bio::GMOD::RPC::Server::View::JSON'  )
     or BAIL_OUT('could not include the module being tested');
 }
 

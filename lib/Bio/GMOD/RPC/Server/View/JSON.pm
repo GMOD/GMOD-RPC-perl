@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::View::JSON;
+package Bio::GMOD::RPC::Server::View::JSON;
 use Moose;
 use Carp;
 
@@ -6,7 +6,7 @@ use JSON::Any;
 
 =head1 NAME
 
-Bio::GMOD::RPC::View::JSON - view class for JSON output
+Bio::GMOD::RPC::Server::View::JSON - view class for JSON output
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ Bio::GMOD::RPC::View::JSON - view class for JSON output
 
 =head1 ROLES
 
-Does L<Bio::GMOD::RPC::View>
+Does L<Bio::GMOD::RPC::Server::View>
 
 =head1 SUBCLASSES
 
@@ -34,7 +34,7 @@ Does L<Bio::GMOD::RPC::View>
 
 =head2 render_result
 
-  Usage: my $str = Bio::GMOD::RPC::View::JSON
+  Usage: my $str = Bio::GMOD::RPC::Server::View::JSON
                       ->new
                       ->render_result({ foo => 'bar', baz => 'boo' });
   Desc : render a perl-native data structure into XML
@@ -67,7 +67,7 @@ sub _render_data {
 }
 
 
-with 'Bio::GMOD::RPC::View';
+with 'Bio::GMOD::RPC::Server::View';
 
 =head1 AUTHOR
 

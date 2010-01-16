@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::Types;
+package Bio::GMOD::RPC::Server::Types;
 
 use MooseX::Types
     -declare => [qw(

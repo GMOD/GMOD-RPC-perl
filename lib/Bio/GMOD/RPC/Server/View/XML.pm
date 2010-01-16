@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::View::XML;
+package Bio::GMOD::RPC::Server::View::XML;
 use Moose;
 use Carp;
 
@@ -6,7 +6,7 @@ use utf8;
 
 =head1 NAME
 
-Bio::GMOD::RPC::View::XML - GMOD-RPC XML view
+Bio::GMOD::RPC::Server::View::XML - GMOD-RPC XML view
 
 =head1 SYNOPSIS
 
@@ -31,7 +31,7 @@ C<['bar','baz','quux']>.
 
 =head1 ROLES
 
-Does L<Bio::GMOD::RPC::View>
+Does L<Bio::GMOD::RPC::Server::View>
 
 =cut
 
@@ -41,7 +41,7 @@ Does L<Bio::GMOD::RPC::View>
 
 =head2 render_result
 
-  Usage: my $str = Bio::GMOD::RPC::View::XML
+  Usage: my $str = Bio::GMOD::RPC::Server::View::XML
                       ->new
                       ->render_result({ foo => 'bar', baz => 'boo' });
   Desc : render a perl-native data structure into XML
@@ -119,7 +119,7 @@ it under the same terms as Perl itself.
 
 =cut
 
-with 'Bio::GMOD::RPC::View';
+with 'Bio::GMOD::RPC::Server::View';
 
 ####
 __PACKAGE__->meta->make_immutable;
