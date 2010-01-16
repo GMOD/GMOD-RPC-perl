@@ -15,6 +15,7 @@ my $build = Module::Build->new(
 
     # list of dependencies for the production code
     requires => {
+	'JSON::Any'                       => 0,
         'Moose'                           => '0.93',
         'namespace::autoclean'            => '0.09',
     },
@@ -22,7 +23,8 @@ my $build = Module::Build->new(
     # list of dependencies that are only needed for running tests (not
     # for a production installation)
     build_requires => {
-
+	'aliased'     => 0,
+	'XML::Simple' => 0,
     },
 
 );
