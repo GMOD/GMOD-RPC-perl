@@ -1,15 +1,23 @@
-#!/usr/bin/perl
-
 package Bio::GMOD::RPC::Server::v1_1::Organism::ModOrganisms;
 
 use Moose::Role;
 use namespace::autoclean;
 
+use Log::Log4perl qw(get_logger);
+
 has 'organisms' => (
 		    is      => 'ro',
 		    isa     => 'ArrayRef[Bio::GMOD::RPC::Server::v1_1::Organism]',
+		    writer  => '_organisms',
 		    default => sub { [] }
 		   );
+
+#Logger is initialized via the Bio::GMOD::RPC::Server package
+has 'logger' => (
+		 is => 'ro',
+		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.Server.v1_1.Organism.ModOrganisms") },
+		 writer => '_logger'
+		);
 
 requires 'create_organisms';
 
@@ -20,20 +28,21 @@ sub add {
 
 sub count {
     my $self = shift;
+    $self->logger->debug("Count called.");
     return scalar @{$self->organisms};
 }
 
 sub fetch_by_genus {
     my $self = shift;
     my $genus = shift;
-
+    $self->logger->debug("Fetch by genus called with $genus.");
     return $self->fetch_by_genus_species($genus,undef);
 }
 
 sub fetch_by_species {
     my $self = shift;
     my $species = shift;
-
+    $self->logger->debug("Fetch by species called with $species.");
     return $self->fetch_by_genus_species(undef,$species);
 }
 
@@ -44,6 +53,8 @@ sub fetch_by_genus_species {
 
     $genus = '' unless defined $genus;
     $species = '' unless defined $species;
+
+    $self->logger->debug("Fetch by genus and species called with genus: $genus species: $species");
 
     my @organisms = ();
 
@@ -58,6 +69,7 @@ sub fetch_by_genus_species {
 	    push(@organisms,$organism);
 	}
     }
+    $self->logger->debug('Found a total of ' . scalar(@organisms) . ' organisms');
     return @organisms;
 }
 
@@ -65,6 +77,7 @@ sub fetch_by_abbreviation {
     my $self   = shift;
     my $abbrev = shift;
 
+    $self->logger->debug("Fetch by abbreviation called with $abbrev");
     $abbrev = qr/^$abbrev$/i;
     my @organisms = ();
 
@@ -73,12 +86,30 @@ sub fetch_by_abbreviation {
 	    push(@organisms,$organism);
 	}
     }
+    $self->logger->debug('Found a total of ' . scalar(@organisms) . ' organisms');
+    return @organisms;
+}
+
+sub fetch_by_taxonid {
+    my $self    = shift;
+    my $taxonid = shift;
+
+    $self->logger->debug("Fetch by taxonid called with $taxonid");
+    my @organisms = ();
+
+    foreach my $organism (@{$self->organisms}) {
+	if ($organism->taxonid == $taxonid) {
+	    push(@organisms,$organism);
+	}
+    }
+    $self->logger->debug('Found a total of ' . scalar(@organisms) . ' organisms');
     return @organisms;
 }
 
 
 sub BUILD {
     my $self = shift;
+    $self->logger->debug('Calling the subclassed create_organisms function.');
     $self->create_organisms;
 }
 

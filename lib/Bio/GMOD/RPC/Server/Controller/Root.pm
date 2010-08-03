@@ -1,6 +1,7 @@
 package Bio::GMOD::RPC::Server::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use Data::Dump qw(dump);
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -20,17 +21,44 @@ Bio::GMOD::RPC::Server::Controller::Root - Root Controller for Bio::GMOD::RPC::S
 
 =head1 METHODS
 
-=head2 index
-
-The root page (/)
+=head2 auto
 
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+sub auto : Private {
+    my ($self, $c) = @_;
+    my $content_type = 'text/xml';
+    my $template_suffix = '_xml.tt';
+    if ($c->request->match =~ /\.json$/) {
+	$content_type = 'application/json';
+	$template_suffix = '_json.tt';
+    }
+    $c->log->debug("Setting content type to $content_type");
+    $c->response->content_type($content_type);
 
-    # Hello World
-    $c->response->body( $c->welcome_message );
+    #Setup template suffix
+    $c->stash(template_suffix => $template_suffix);
+    return 1;
+}
+
+
+
+=head2 gmodrpc
+
+The GMOD RPC versions page.
+
+=cut
+
+sub gmodrpc :Regex('^gmodrpc(\.xml|\.json)?$') :Args(0) {
+    my ($self, $c) = @_;
+    $c->log->info('Received a request for list of supported GMOD RPC versions.');
+
+    my $db = $c->config->{use_db_config};
+    my @versions = @{$c->config->{db}->{$db}->{supported_versions}};
+    $c->log->debug("Got the supported versions " . $versions[0]);
+
+    $c->stash(template           => 'versions' . $c->stash->{template_suffix},
+	      supported_versions => \@versions);
 }
 
 =head2 default
@@ -41,6 +69,8 @@ Standard 404 error page
 
 sub default :Path {
     my ( $self, $c ) = @_;
+    #Reset the content type if no action picks up the URL.
+    $c->response->content_type('text/html');
     $c->response->body( 'Page not found' );
     $c->response->status(404);
 }

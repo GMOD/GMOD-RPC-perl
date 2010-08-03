@@ -1,0 +1,18 @@
+{
+   resultset:{
+       api_version:[% api_version %],
+       data_provider:'[% data_provider %]',
+       data_version:'[% data_version %]',
+       result:[
+           [%FOREACH organism IN organisms %]{
+               organism:{
+                   genus:'[% organism.genus %]',
+                   species:'[% organism.species %]',
+                   taxonomy_id:[% organism.taxonid %],
+		   taxonomy_uri:'[% organism.taxonomy_uri %]'
+               }
+           }[% UNLESS loop.last %], [% END %]
+	   [% END %]
+       ]
+   }
+}

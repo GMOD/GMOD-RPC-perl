@@ -4,8 +4,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 8;
-
-BEGIN { use_ok('Bio::GMOD::RPC::Server::v1_1::Organism'); }
+BEGIN { use_ok('Bio::GMOD::RPC::Server', 'Bio::GMOD::RPC::Server::v1_1::Organism'); }
 require_ok('Bio::GMOD::RPC::Server::v1_1::Organism');
 
 my $organism = new Bio::GMOD::RPC::Server::v1_1::Organism;

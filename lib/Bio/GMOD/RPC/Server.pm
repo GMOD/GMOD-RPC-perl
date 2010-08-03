@@ -13,14 +13,20 @@ use Catalyst::Runtime 5.80;
 #                 directory
 
 use Catalyst qw/
-    ConfigLoader
-    Static::Simple
-/;
+		   ConfigLoader
+		   Static::Simple
+	       /;
 
 extends 'Catalyst';
 
-our $VERSION = '0.01';
+use Catalyst::Log::Log4perl;
+
+our $VERSION = '1.1';
 $VERSION = eval $VERSION;
+
+# Configure logging
+__PACKAGE__->log(Catalyst::Log::Log4perl->new('log4perl.conf'));
+
 
 # Configure the application.
 #
@@ -32,10 +38,15 @@ $VERSION = eval $VERSION;
 # local deployment.
 
 __PACKAGE__->config(
-    name => 'Bio::GMOD::RPC::Server',
-    # Disable deprecated behavior needed by old applications
-    disable_component_resolution_regex_fallback => 1,
-);
+		    'Plugin::ConfigLoader' => {
+					       driver => {
+							  'General' => { -ForceArray => 1}
+							 }
+					       },
+		    name => 'Bio::GMOD::RPC::Server',
+		    # Disable deprecated behavior needed by old applications
+		    disable_component_resolution_regex_fallback => 1,
+		   );
 
 # Start the application
 __PACKAGE__->setup();

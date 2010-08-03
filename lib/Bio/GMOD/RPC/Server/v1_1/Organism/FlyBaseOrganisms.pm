@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 package Bio::GMOD::RPC::Server::v1_1::Organism::FlyBaseOrganisms;
 
 use Moose;
@@ -10,6 +8,7 @@ with 'Bio::GMOD::RPC::Server::v1_1::Organism::ModOrganisms';
 
 sub create_organisms {
     my $self = shift;
+    $self->logger->debug('Populating the subclassed organism container object ' . __PACKAGE__);
     $self->add(Bio::GMOD::RPC::Server::v1_1::Organism->new(genus => 'Drosophila',
 							   species => 'melanogaster',
 							   abbreviation => 'dmel',

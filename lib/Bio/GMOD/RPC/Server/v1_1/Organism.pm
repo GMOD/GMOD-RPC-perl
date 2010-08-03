@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 package Bio::GMOD::RPC::Server::v1_1::Organism;
 
 use Moose;
@@ -10,12 +8,12 @@ has 'genus'        => (is => 'rw', isa => 'Str');
 has 'abbreviation' => (is => 'rw', isa => 'Str');
 has 'common_name'  => (is => 'rw', isa => 'Str');
 has 'taxonid'      => (is => 'rw', isa => 'Int');
-has 'taxon_url'     => (is => 'rw', isa => 'Str', default => 'http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=');
+has 'taxon_base_uri'     => (is => 'rw', isa => 'Str', default => 'http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=');
 
 
-sub get_full_taxon_url {
+sub taxonomy_uri {
     my $self = shift;
-    return $self->ncbi_url . $self->taxonid;
+    return $self->taxon_base_uri . $self->taxonid;
 }
 
 
