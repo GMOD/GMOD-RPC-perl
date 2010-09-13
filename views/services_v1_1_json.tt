@@ -1,0 +1,18 @@
+{
+    resultset:{
+        result:[
+            {
+                service:{
+                    name:'organisms',
+                    base_uri:'http://flybase.org/gmodrpc/v1.1/organisms'
+                }
+            },
+            {
+                service:{
+                    name:'fulltext',
+                    base_uri:'http://flybase.org/gmodrpc/v1.1/fulltext'
+                }
+            }
+        ]
+    }
+}

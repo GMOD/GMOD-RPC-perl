@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::Server::v1_1::Organism;
+package Bio::GMOD::RPC::v1_1::Organism;
 
 use Moose;
 use namespace::autoclean;

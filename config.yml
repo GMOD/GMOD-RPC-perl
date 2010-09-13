@@ -1,3 +1,15 @@
-layout: "main"
-logger: "file"
+template: "template_toolkit"
+engines:
+    template_toolkit:
+        start_tag: '[%'
+        stop_tag: '%]'
 
+#logger: "Log4perl"
+#log4perl_conf: log4perl.conf
+
+supported_versions:
+   - 1.1
+
+api_version: 1.1
+data_provider: FlyBase
+data_version: FB2010_07
