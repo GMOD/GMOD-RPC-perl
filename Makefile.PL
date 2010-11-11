@@ -1,3 +1,4 @@
+
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -16,6 +17,8 @@ WriteMakefile(
         'YAML'       => 0,
         'Dancer'     => 1.1805,
         'Moose'      => 0,
+        'DBI'        => 0,
+        'DBD::Pg'    => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Bio_GMOD_RPC-*' },
