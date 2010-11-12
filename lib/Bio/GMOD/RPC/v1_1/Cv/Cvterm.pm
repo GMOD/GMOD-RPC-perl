@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::v1_1::Cvterm;
+package Bio::GMOD::RPC::v1_1::Cv::Cvterm;
 
 use Moose;
 use Log::Log4perl qw(get_logger);
@@ -13,7 +13,7 @@ has 'id'           => (is => 'rw', isa => 'Str');
 #Logger is initialized via the Bio::GMOD::RPC::Server package
 has 'logger' => (
 		 is => 'ro',
-		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.v1_1.Cvterm") },
+		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.v1_1.Cv.Cvterm") },
 		 writer => '_logger'
 		);
 

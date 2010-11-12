@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::v1_1::Cv;
+package Bio::GMOD::RPC::v1_1::Cv::Cv;
 
 use Moose;
 use Log::Log4perl qw(get_logger);
@@ -10,7 +10,7 @@ has 'version'      => (is => 'rw', isa => 'Str');
 
 has 'logger' => (
 		 is => 'ro',
-		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.v1_1.Cv") },
+		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.v1_1.Cv.Cv") },
 		 writer => '_logger'
 		);
 

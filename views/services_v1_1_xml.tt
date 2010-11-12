@@ -12,4 +12,16 @@
 			<base_uri>http://flybase.org/gmodrpc/v1.1/fulltext</base_uri>
 		</service>
 	</result>
+	<result>	
+		<service>
+			<name>cv</name>
+			<base_uri>http://flybase.org/gmodrpc/v1.1/cv</base_uri>
+		</service>
+	</result>
+	<result>	
+		<service>
+			<name>cvterm</name>
+			<base_uri>http://flybase.org/gmodrpc/v1.1/cv</base_uri>
+		</service>
+	</result>
 </resultset>

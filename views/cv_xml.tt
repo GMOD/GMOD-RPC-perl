@@ -3,12 +3,14 @@
 	<api_version>[% api_version %]</api_version>
 	<data_provider>[% data_provider %]</data_provider>
 	<data_version>[% data_version %]</data_version>
+	<query_time>[% query_time %]</query_time>
+	<query_url>[% query_url %]</query_url>
 	[% FOREACH cv IN cvs %]
 	<result>	
 		<cv>
-			<name>[% cv.name %]</name>
-			<definition>[% cv.definition %]</definition>
-			<version>[% cv.version %]</version>
+			<name>[% cv.name | xml %]</name>
+			<definition>[% cv.definition | xml %]</definition>
+			<version>[% cv.version | xml %]</version>
 		</cv>
 	</result>
 	[% END %]

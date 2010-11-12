@@ -12,6 +12,8 @@ has 'logger' => (
 		 writer => '_logger'
 		);
 
+has 'config' => (is => 'rw', isa => 'HashRef', predicate => 'has_config');
+
 requires 'list_cvs';
 requires 'list_cvterms';
 

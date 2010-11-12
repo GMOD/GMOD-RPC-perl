@@ -1,27 +1,27 @@
 package Bio::GMOD::RPC::Server::v1_1::Services;
 use Dancer ':syntax';
 use Template;
-use Data::Dumper;
+use POSIX;
 use Log::Log4perl;
-
-#use Bio::GMOD::RPC::v1_1::Organism::FlyBaseOrganisms;
-use Bio::GMOD::RPC::v1_1::DbUtils;
 
 Log::Log4perl->init_once('log4perl.conf');
 
 #Initialize logger object.
-my $logger = Log::Log4perl::get_logger("Bio::GMOD::RPC::Server::v1_1::Services");
+my $logger = Log::Log4perl::get_logger("Bio.GMOD.RPC.Server.v1_1.Services");
 
 #Fetch service provider objects for v1.1 API services.
 my $providers = config->{providers}->{v1_1};
-my $db_util = new Bio::GMOD::RPC::v1_1::DbUtils;
-$db_util->config(config);
 
 #Dynamically load each service provider object that is configured
 #in the config.yml file.
 foreach my $service (keys %{$providers}) {
     eval "use " . $providers->{$service};
 }
+
+#Initialize providers
+my $orgs = new {$providers->{organism}};
+my $mod_cv = new {$providers->{cv}};
+$mod_cv->config(config);
 
 #=================================
 # Dancer controller code follows.
@@ -44,7 +44,7 @@ get '.json' => \&services;
 get '/' => \&services;
 
 sub services {
-    $logger->debug("/gmodrpc/v1.1 called");
+    $logger->info("/gmodrpc/v1.1 called");
     template 'services_v1_1' . vars->{template_suffix};
 }
 
@@ -54,9 +54,7 @@ get '/organisms.xml'  => \&organisms;
 get '/organisms.json' => \&organisms;
 
 sub organisms {
-    $logger->debug("/gmodrpc/v1.1/organisms called");
-    #Initialize organism provider object.
-    my $orgs = new {$providers->{organism}};
+    $logger->info("/gmodrpc/v1.1/organisms called");
     template 'organisms' . vars->{template_suffix} => { organisms => $orgs->organisms,
 							data_provider => config->{data_provider},
 							data_version => config->{data_version}
@@ -64,18 +62,18 @@ sub organisms {
 }
 
 get '/cv'      => \&cv;
-get '/cv/'     => \&cv;
 get '/cv.xml'  => \&cv;
 get '/cv.json' => \&cv;
 
 sub cv {
-    $logger->debug("/gmodrpc/v1.1/cv called");
-    my $mod_cv = new {$providers->{cv}};
+    $logger->info("/gmodrpc/v1.1/cv called");
     template 'cv' . vars->{template_suffix} => {
-						cvs => $mod_cv->list_cvs($db_util->dbh),
+						cvs => $mod_cv->list_cvs,
 						api_version => config->{api_version},
 						data_provider => config->{data_provider},
-						data_version => config->{data_version}
+						data_version => config->{data_version},
+						query_time => POSIX::strftime("%Y-%m-%d %H:%M:%S %z", localtime),
+						query_url => request->uri_for(request->path,request->params),
 					       };
 }
 
@@ -84,15 +82,14 @@ get '/cv/:name.xml'  => \&get_cvterms;
 get '/cv/:name.json' => \&get_cvterms;
 
 sub get_cvterms {
-    $logger->debug("/gmodrpc/v1.1/cv called with cv name");
+    $logger->info("/gmodrpc/v1.1/cv called with cv name");
     my $cv_name = params->{name};
-    my $mod_cv = new {$providers->{cv}};
     template 'cvterm' . vars->{template_suffix} => {
-						     cvterms => $mod_cv->list_cvterms($db_util->dbh,$cv_name),
-						     api_version => config->{api_version},
-						     data_provider => config->{data_provider},
-						     data_version => config->{data_version}
-						    };
+						    cvterms => $mod_cv->list_cvterms($cv_name),
+						    api_version => config->{api_version},
+						    data_provider => config->{data_provider},
+						    data_version => config->{data_version},
+						   };
 }
 
 get '/gene/name/:name' => \&find_by_name;
@@ -103,6 +100,7 @@ sub find_by_name {
     my $name = params->{name};
     $logger->debug("/gmodrpc/v1.1/name called with $name");
     my $name_resolver = new {$providers->{name}};
+    
 }
 
 
