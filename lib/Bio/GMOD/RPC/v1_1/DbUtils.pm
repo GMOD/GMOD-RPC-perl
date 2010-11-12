@@ -1,8 +1,9 @@
 package Bio::GMOD::RPC::v1_1::DbUtils;
 
 use Moose;
-use Log::Log4perl qw(get_logger);
 use namespace::autoclean;
+
+with 'MooseX::Log::Log4perl', 'Bio::GMOD::RPC::v1_1::AppConfig';
 
 has 'driver'         => (is => 'rw', isa => 'Str', default => 'Pg');
 has 'database'   => (is => 'rw', isa => 'Str', default => '');
@@ -10,36 +11,35 @@ has 'hostname' => (is => 'rw', isa => 'Str', default => 'localhost');
 has 'port' => (is => 'rw', isa => 'Int', default => 5432);
 has 'username' => (is => 'rw', isa => 'Str', default => '');
 has 'password' => (is => 'rw', isa => 'Str', default => '');
-has 'config' => (is => 'rw', isa => 'HashRef', trigger => \&_update_vars);
 
-has 'logger' => (
-		 is => 'ro',
-		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.v1_1.DbUtils") },
-		 writer => '_logger'
-		);
 
-sub _update_vars {
-    my $self = shift;
-    my $config = $self->config;
+after 'config' => sub {
+    my ($self, @args) = @_;
 
-    $self->logger->debug("_update_vars called with a config object.");
+    if (@args) {
+	my $config = $self->config;
 
-    $self->driver($config->{chado}->{driver});
-    $self->hostname($config->{chado}->{hostname});
-    $self->database($config->{chado}->{database});
-    $self->username($config->{chado}->{username});
-    $self->password($config->{chado}->{driver});
-    $self->port($config->{chado}->{port});
+	$self->logger->debug("Parsing config object for DB parameters.");
+
+	$self->driver($config->{chado}->{driver});
+	$self->hostname($config->{chado}->{hostname});
+	$self->database($config->{chado}->{database});
+	$self->username($config->{chado}->{username});
+	$self->password($config->{chado}->{driver});
+	$self->port($config->{chado}->{port});
+    }
 };
 
 sub dsn {
     my $self = shift;
+    $self->logger->debug("dsn called.");
     return 'dbi:' . $self->driver . ':database=' . $self->database . ';host=' . $self->hostname . ';port=' . $self->port;
 }
 
 sub dbh {
     my $self = shift;
     my $dsn = $self->dsn;
+    $self->logger->debug("Returning a dbh object.");
     return DBI->connect($dsn,$self->username,$self->password,{AutoCommit => 0, RaiseError => 1, PrintError => 1});
 }
 

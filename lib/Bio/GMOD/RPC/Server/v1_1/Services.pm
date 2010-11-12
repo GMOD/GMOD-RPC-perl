@@ -7,7 +7,7 @@ use Log::Log4perl;
 Log::Log4perl->init_once('log4perl.conf');
 
 #Initialize logger object.
-my $logger = Log::Log4perl::get_logger("Bio.GMOD.RPC.Server.v1_1.Services");
+my $logger = Log::Log4perl::get_logger("Bio::GMOD::RPC::Server::v1_1::Services");
 
 #Fetch service provider objects for v1.1 API services.
 my $providers = config->{providers}->{v1_1};

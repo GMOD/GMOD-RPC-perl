@@ -14,6 +14,22 @@ has 'dbutils' => (is => 'rw',
 		  lazy_build => 1,
 		 );
 
+sub _build_dbutils {
+    my $self = shift;
+    $self->logger->debug("Building the database utils object.");
+    my $dbutils = new Bio::GMOD::RPC::v1_1::DbUtils;
+
+    if ($self->has_config) {
+	$self->logger->debug("Found database config.");
+	$dbutils->config($self->config);
+    }
+    else {
+	$self->logger->error("No configuration found for database info.  Using defaults...");
+    }
+    return $dbutils;
+}
+
+
 sub list_cvs {
     my $self = shift;
 
@@ -56,18 +72,6 @@ SQL
     }
     $dbh->disconnect;
     return \@cvterms;
-}
-
-
-sub _build_dbutils {
-    my $self = shift;
-    $self->logger->debug("Building the database utils object.");
-    if ($self->has_config) {
-	$self->dbutils(new Bio::GMOD::RPC::v1_1::DbUtils(config => $self->config));
-    }
-    else {
-	$self->logger->error("No configuration found for database info.");
-    }
 }
 
 __PACKAGE__->meta->make_immutable;

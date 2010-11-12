@@ -7,7 +7,7 @@ our $VERSION = '1.1';
 
 Log::Log4perl->init_once('log4perl.conf');
 
-my $logger = Log::Log4perl::get_logger("Bio.GMOD.RPC.Server");
+my $logger = Log::Log4perl::get_logger("Bio::GMOD::RPC::Server");
 
 before sub {
     if (request->path =~ m/\.json$/) {

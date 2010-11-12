@@ -1,7 +1,9 @@
-package Bio::GMOD::RPC::v1_1::Organism;
+package Bio::GMOD::RPC::v1_1::Organism::Organism;
 
 use Moose;
 use namespace::autoclean;
+
+with 'MooseX::Log::Log4perl';
 
 has 'species'      => (is => 'rw', isa => 'Str');
 has 'genus'        => (is => 'rw', isa => 'Str');

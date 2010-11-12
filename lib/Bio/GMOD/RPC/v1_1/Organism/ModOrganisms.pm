@@ -3,21 +3,14 @@ package Bio::GMOD::RPC::v1_1::Organism::ModOrganisms;
 use Moose::Role;
 use namespace::autoclean;
 
-use Log::Log4perl qw(get_logger);
+with 'MooseX::Log::Log4perl';
 
 has 'organisms' => (
 		    is      => 'ro',
-		    isa     => 'ArrayRef[Bio::GMOD::RPC::v1_1::Organism]',
+		    isa     => 'ArrayRef[Bio::GMOD::RPC::v1_1::Organism::Organism]',
 		    writer  => '_organisms',
-		    default => sub { [] }
+		    default => sub { [] },
 		   );
-
-#Logger is initialized via the Bio::GMOD::RPC::Server package
-has 'logger' => (
-		 is => 'ro',
-		 default => sub { Log::Log4perl->get_logger("Bio.GMOD.RPC.v1_1.Organism.ModOrganisms") },
-		 writer => '_logger'
-		);
 
 requires 'create_organisms';
 
