@@ -8,10 +8,10 @@
 	</header>
 	[% FOREACH cvterm IN cvterms %]
 	<term>
-		<id>[% cvterm.db %]:[% cvterm.id %]</id>
-		<name>[% cvterm.name %]</name>
+		<id>[% cvterm.db | xml %]:[% cvterm.id | xml %]</id>
+		<name>[% cvterm.name | xml %]</name>
 		<def>
-		   <defstr>[% cvterm.definition %]</defstr>
+		   <defstr>[% cvterm.definition | xml %]</defstr>
 		</def>
 	</term>
 	[% END %]
