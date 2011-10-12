@@ -17,16 +17,16 @@ after 'config' => sub {
     my ($self, @args) = @_;
 
     if (@args) {
-	my $config = $self->config;
+    my $config = $self->config;
 
-	$self->logger->debug("Parsing config object for DB parameters.");
+    $self->logger->debug("Parsing config object for DB parameters.");
 
-	$self->driver($config->{chado}->{driver});
-	$self->hostname($config->{chado}->{hostname});
-	$self->database($config->{chado}->{database});
-	$self->username($config->{chado}->{username});
-	$self->password($config->{chado}->{driver});
-	$self->port($config->{chado}->{port});
+    $self->driver($config->{chado}->{driver});
+    $self->hostname($config->{chado}->{hostname});
+    $self->database($config->{chado}->{database});
+    $self->username($config->{chado}->{username});
+    $self->password($config->{chado}->{driver});
+    $self->port($config->{chado}->{port});
     }
 };
 

@@ -11,12 +11,12 @@ my $logger = Log::Log4perl::get_logger("Bio::GMOD::RPC::Server");
 
 before sub {
     if (request->path =~ m/\.json$/) {
-	content_type 'application/json';
-	var template_suffix => '_json';
+        content_type 'application/json';
+        var template_suffix => '_json';
     }
     else {
-	content_type 'text/xml';
-	var template_suffix => '_xml';
+        content_type 'text/xml';
+        var template_suffix => '_xml';
     }
 };
 

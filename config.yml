@@ -28,4 +28,4 @@ providers:
    v1_1:
        organism: Bio::GMOD::RPC::v1_1::Organism::FlyBaseOrganisms
        cv: Bio::GMOD::RPC::v1_1::Cv::ChadoCv
-       name: Bio::GMOD::RPC::v1_1::ChadoNameResolver
+       name: Bio::GMOD::RPC::v1_1::Name::ChadoNameResolver

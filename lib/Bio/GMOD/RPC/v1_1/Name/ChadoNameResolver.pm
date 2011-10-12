@@ -1,18 +1,16 @@
-package Bio::GMOD::RPC::v1_1::Cv::ChadoCv;
+package Bio::GMOD::RPC::v1_1::Name::ChadoNameResolver;
 
 use Moose;
 use DBI;
-use Bio::GMOD::RPC::v1_1::Cv::Cv;
-use Bio::GMOD::RPC::v1_1::Cv::Cvterm;
 use Bio::GMOD::RPC::v1_1::DbUtils;
 use namespace::autoclean;
+
+with 'Bio::GMOD::RPC::v1_1::Name::ModNameResolver';
 
 has 'dbutils' => (is => 'rw',
                   isa => 'Bio::GMOD::RPC::v1_1::DbUtils',
                   lazy_build => 1,
                  );
-
-with 'Bio::GMOD::RPC::v1_1::Cv::ModCv';
 
 sub _build_dbutils {
     my $self = shift;
@@ -29,6 +27,21 @@ sub _build_dbutils {
     return $dbutils;
 }
 
+sub find_gene_by_name {
+    my $self = shift;
+
+    my $dbh = $self->dbutils->dbh;
+    my @genes;
+    $self->logger->info("Fetching all matching gene names from Chado database.");
+    my $sql = <<SQL;
+select 
+
+SQL
+    my $fuzzy_sql = <<SQL;
+select 
+SQL
+    my $chado_genes = $dbh->selectall_arrayref("");
+}
 
 sub list_cvs {
     my $self = shift;
