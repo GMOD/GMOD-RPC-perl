@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<obo>
+	<source>
+
+	</source>
+	<header>
+
+	</header>
+	[% FOREACH cvterm IN cvterms %]
+	<term>
+		<id>[% cvterm.db | xml %]:[% cvterm.id | xml %]</id>
+		<name>[% cvterm.name | xml %]</name>
+		<def>
+		   <defstr>[% cvterm.definition | xml %]</defstr>
+		</def>
+	</term>
+	[% END %]
+</obo>

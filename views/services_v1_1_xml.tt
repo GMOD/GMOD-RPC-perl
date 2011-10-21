@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resultset>
+    <result>    
+        <service>
+            <name>organisms</name>
+            <base_uri>http://flybase.org/gmodrpc/v1.1/organisms</base_uri>
+        </service>
+    </result>
+    <result>    
+        <service>
+            <name>fulltext</name>
+            <base_uri>http://flybase.org/gmodrpc/v1.1/fulltext</base_uri>
+        </service>
+    </result>
+    <result>    
+        <service>
+            <name>cv</name>
+            <base_uri>http://flybase.org/gmodrpc/v1.1/cv</base_uri>
+        </service>
+    </result>
+    <result>    
+        <service>
+            <name>cvterm</name>
+            <base_uri>http://flybase.org/gmodrpc/v1.1/cvterm</base_uri>
+        </service>
+    </result>
+</resultset>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resultset>
+    [% FOREACH i IN supported_versions %]
+    <result>    
+        <gmodrpc>
+            <api_version>[% i %]</api_version>
+            <base_uri>http://flybase.org/gmodrpc/v[% i %]</base_uri>
+        </gmodrpc>
+    </result>
+    [% END %]
+</resultset>
+

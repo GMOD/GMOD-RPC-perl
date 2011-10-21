@@ -1,0 +1,13 @@
+{
+    resultset:{
+        result:[
+            [% FOREACH i IN supported_versions %]{
+                gmodrpc:{
+                    api_version:[% i %],
+                    base_uri:'http://flybase.org/gmodrpc/v[% i %]'
+                }
+            }[% UNLESS loop.last %], [% END %]
+            [% END %]
+        ]
+    }
+}

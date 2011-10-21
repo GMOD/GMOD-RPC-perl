@@ -1,0 +1,6 @@
+log: "debug"
+access_log: 1
+warnings: 1
+show_errors: 1
+auto_reload: 1
+

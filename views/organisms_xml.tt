@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resultset>
+	<api_version>[% api_version %]</api_version>
+	<data_provider>[% data_provider %]</data_provider>
+	<data_version>[% data_version %]</data_version>
+	[% FOREACH organism IN organisms %]
+	<result>	
+		<organism>
+			<genus>[% organism.genus %]</genus>
+			<species>[% organism.species %]</species>
+			<taxonomy_id>[% organism.taxonid %]</taxonomy_id>
+			<taxonomy_uri>[% organism.taxonomy_uri %]</taxonomy_uri>
+		</organism>
+	</result>
+	[% END %]
+</resultset>
