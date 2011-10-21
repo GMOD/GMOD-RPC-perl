@@ -1,4 +1,4 @@
-package Bio::GMOD::RPC::v1_1::DbUtils;
+package Bio::GMOD::RPC::v1_1::SQL::Queries;
 
 use Moose;
 use namespace::autoclean;
@@ -30,17 +30,11 @@ after 'config' => sub {
     }
 };
 
-sub dsn {
+sub get_query {
     my $self = shift;
-    $self->logger->debug("dsn called.");
-    return 'dbi:' . $self->driver . ':database=' . $self->database . ';host=' . $self->hostname . ';port=' . $self->port;
-}
+    my $version = shift;
+    my $query_name = shift;
 
-sub dbh {
-    my $self = shift;
-    my $dsn = $self->dsn;
-    $self->logger->debug("Returning a dbh object.");
-    return DBI->connect($dsn,$self->username,$self->password,{AutoCommit => 0, RaiseError => 1, PrintError => 1});
 }
 
 

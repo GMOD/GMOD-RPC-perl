@@ -1,14 +1,13 @@
 package Bio::GMOD::RPC::v1_1::Cv::ChadoCv;
 
 use Moose;
-use DBI;
 use Bio::GMOD::RPC::v1_1::Cv::Cv;
 use Bio::GMOD::RPC::v1_1::Cv::Cvterm;
-use Bio::GMOD::RPC::v1_1::DbUtils;
+use Bio::GMOD::RPC::v1_1::DB::DbUtils;
 use namespace::autoclean;
 
 has 'dbutils' => (is => 'rw',
-                  isa => 'Bio::GMOD::RPC::v1_1::DbUtils',
+                  isa => 'Bio::GMOD::RPC::v1_1::DB::DbUtils',
                   lazy_build => 1,
                  );
 
@@ -17,7 +16,7 @@ with 'Bio::GMOD::RPC::v1_1::Cv::ModCv';
 sub _build_dbutils {
     my $self = shift;
     $self->logger->debug("Building the database utils object.");
-    my $dbutils = new Bio::GMOD::RPC::v1_1::DbUtils;
+    my $dbutils = new Bio::GMOD::RPC::v1_1::DB::DbUtils;
 
     if ($self->has_config) {
         $self->logger->debug("Found database config.");

@@ -29,17 +29,6 @@ $mod_cv->config(config);
 #=================================
 prefix '/gmodrpc/v1.1';
 
-before sub {
-    if (request->path =~ m/\.json/) {
-        content_type 'application/json';
-        var template_suffix => '_json';
-    }
-    else {
-        content_type 'text/xml';
-        var template_suffix => '_xml';
-    }
-};
-
 get '.xml' => \&services;
 get '.json' => \&services;
 get '/' => \&services;
@@ -78,12 +67,12 @@ sub cv {
                                                };
 }
 
-get '/cv/:name'      => \&get_cvterms;
-get '/cv/:name.xml'  => \&get_cvterms;
-get '/cv/:name.json' => \&get_cvterms;
+get '/cvterm/:name'      => \&get_cvterms;
+get '/cvterm/:name.xml'  => \&get_cvterms;
+get '/cvterm/:name.json' => \&get_cvterms;
 
 sub get_cvterms {
-    $logger->info("/gmodrpc/v1.1/cv called with cv name");
+    $logger->info("/gmodrpc/v1.1/cvterm called with cv name");
     my $cv_name = params->{name};
     template 'cvterm' . vars->{template_suffix} => {
                                                     cvterms => $mod_cv->list_cvterms($cv_name),
@@ -118,10 +107,26 @@ sub location {
     my $taxid   = params->{taxid};
     my $genus   = params->{genus};
     my $species = params->{species};
-    
+
     $logger->debug("Chrome is $chrom");
     $logger->debug("Request path is " . request->path);
     $type;
+}
+
+
+get '/ontology/gene/:term' => \&gene_ontology;
+get '/ontology/gene/:term.xml' => \&gene_ontology;
+get '/ontology/gene/:term.json' => \&gene_ontology;
+
+sub gene_ontology {
+    my $term = params->{term};
+    my $taxid = params->{taxid} || "";
+    my $is_not = $term =~ s/^!//g;
+
+    $logger->debug("Gene ontology service called.");
+    $logger->debug("Term = $term");
+    $logger->debug("Taxid = $taxid");
+    $logger->debug("Is NOT = $is_not");
 }
 
 true;

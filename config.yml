@@ -14,13 +14,13 @@ supported_versions:
 
 api_version: 1.1
 data_provider: FlyBase
-data_version: FB2010_07
+data_version: FB2011_01
 
 chado:
    driver: Pg
-   hostname: flybase.org
-   database: flybase
-   username: flybase
+   hostname: localhost
+   database: FB2011_01
+   username: jogoodma
    password:
    port: 5432
 
@@ -29,3 +29,10 @@ providers:
        organism: Bio::GMOD::RPC::v1_1::Organism::FlyBaseOrganisms
        cv: Bio::GMOD::RPC::v1_1::Cv::ChadoCv
        name: Bio::GMOD::RPC::v1_1::Name::ChadoNameResolver
+       #go: Bio::GMOD::RPC::v1_1::Ontology::ChadoGO
+
+sql:
+    v1_1:
+        fetch_by_gene_name: sql/v1_1/fetch_by_gene_name.sql
+        fetch_by_go: sql/v1_1/fetch_by_go.sql
+        fetch_by_go_not: sql/v1_1/fetch_by_go_not.sql
