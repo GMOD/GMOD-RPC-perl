@@ -1,0 +1,51 @@
+charset: utf-8
+
+template: "template_toolkit"
+engines:
+    template_toolkit:
+        start_tag: '[%'
+        stop_tag: '%]'
+        ENCODE: utf8
+
+logger: "log4perl"
+log4perl:
+    config_file: log4perl.conf
+
+supported_versions:
+   - 1.1
+
+supported_services:
+    - "organisms"
+    #- "gene/name/:name"
+    #- "location/chromosome/:chrom"
+    #- "ontology/gene/:term"
+
+api:
+    version: v1_1
+data:
+    provider: FlyMine
+
+intermine:
+    server: www.flymine.org/query
+
+# The prefix Bio::GMOD::RPC::Provider:: Can just be assumed
+# Bundles should share a common namespace
+providers:
+   v1_1:
+       organisms: InterMine::Organism
+       cv: InterMine::CV
+       gene/name/:name: InterMine::Gene
+       version: InterMine::Version
+       location/chromosome/:chrom: InterMine::Location
+       ontology/gene/:term: InterMine::Ontology
+
+# The prefix Bio::GMOD::RPC::Formatter::
+formatters:
+    v1_1:
+       organisms: InterMine::Organism
+       cv: InterMine::CV
+       gene/name/:name: InterMine::Gene
+       version: InterMine::Version
+       location/chromosome/:chrom: InterMine::Location
+       ontology/gene/:term: InterMine::Ontology
+
