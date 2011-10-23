@@ -3,7 +3,7 @@ package Bio::GMOD::RPC::Types;
 use MooseX::Types -declare => [
     "Version", "Formatter", "Provider", "WebService", "HashOfHashes"
 ];
-use MooseX::Types::Moose qw/Str/;
+use MooseX::Types::Moose qw/Str HashRef/;
 
 subtype Version() => as Str, 
     where {/^v\d+_\d+$/}, 
