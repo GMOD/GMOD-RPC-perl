@@ -1,0 +1,48 @@
+=head1 GMOD RPC Web-Service Adaptors
+
+=head2 DESCRIPTION
+
+Some description of the project
+
+=head2 HOW TO USE
+
+This project requires a data provider. Current implementations are 
+back end providers for InterMine and FlyBase-Chado...
+
+The steps are:
+
+=over 4
+
+=item * Install/write data provider
+
+=item * Write configuration file
+
+=item * Run the webapp
+
+eg: C<plackup -s Starman -p 5000 --workers 10 --pid __Starman.pid -a bin/gmod_rpc.pl>
+
+=back
+
+=head2 WRITING A PROVIDER
+
+A data provider is a perl class that fulfills a certain contract:
+
+=over 4
+
+=item * It can be instantiated with "new", with the arguments C<service => $webservice>.
+
+=item * It can be called with C<get_data>, with a list of key-value pair parameter arguments.
+
+=item * A call to get_data returns a data-structure fulfilling the contract for its role.
+
+See the tests for examples of these data structures.
+
+=back
+
+=head2 WRITING A CONFIG FILE
+
+The config file declares which services will be created, where they will get their data, and
+what how the data can be formatted...
+
+TODO...
+
